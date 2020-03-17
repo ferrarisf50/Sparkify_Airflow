@@ -29,18 +29,18 @@ class LoadFactOperator(BaseOperator):
     def execute(self, context):
 
         
-        redshift = PostgresHook(postgres_conn_id=self.redshift_conn_id)
+        redshift_hook = PostgresHook(postgres_conn_id=self.redshift_conn_id)
         
         self.log.info(f"Inserting {self.table} at Redshift")
         
         if self.delete_existing_data == False:
             self.log.info(f"Delete data from {self.table}")
-            redshift.run("DELETE FROM {}".format(self.table))    
+            redshift_hook.run("DELETE FROM {}".format(self.table))    
             
         insert_sql = """
             INSERT INTO {table}
             {sql_query};
-        """.format(table=self.table, insert_sql=self.sql_query)
+        """.format(table=self.table, sql_query=self.sql_query)
         
         redshift_hook.run(insert_sql)
         self.log.info(f"Loading {self.table} complete.")

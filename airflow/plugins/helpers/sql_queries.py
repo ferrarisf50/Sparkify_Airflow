@@ -1,26 +1,41 @@
 class SqlQueries:
+    # DROP TABLES
     
+    staging_events_table_drop= ("""DROP TABLE IF EXISTS staging_events""")
+    
+    staging_songs_table_drop= ("""DROP TABLE IF EXISTS staging_songs""")
+    
+    songplays_table_drop= ("""DROP TABLE IF EXISTS songplays""")
+    
+    users_table_drop= ("""DROP TABLE IF EXISTS users""")
+    
+    songs_table_drop= ("""DROP TABLE IF EXISTS songs""")
+    
+    artists_table_drop= ("""DROP TABLE IF EXISTS artists""")
+    
+    time_table_drop= ("""DROP TABLE IF EXISTS time""")
+
     # CREATE TABLES
     staging_events_table_create= ("""
      CREATE TABLE IF NOT EXISTS staging_events (
             artist VARCHAR,
             auth VARCHAR,
-            first_name VARCHAR,
+            firstname VARCHAR,
             gender CHAR(1),
-            session_item INT,
-            last_name VARCHAR,
+            iteminsession INT,
+            lastname VARCHAR,
             length FLOAT,
             level VARCHAR,
             location VARCHAR,
             method VARCHAR,
             page VARCHAR,
             registration BIGINT,
-            session_id INT,
+            sessionid INT,
             song VARCHAR ,
             status INT,
             ts BIGINT SORTKEY,
-            user_agent VARCHAR,
-            user_id INT
+            useragent VARCHAR,
+            userid INT
         )
     """)
     
@@ -41,12 +56,12 @@ class SqlQueries:
 
     songplays_table_create = ("""
     CREATE TABLE IF NOT EXISTS songplays (
-            songplay_id INT IDENTITY(0, 1) PRIMARY KEY SORTKEY ,
-            start_time TIMESTAMP NOT NULL,
-            user_id VARCHAR NOT NULL,
+            songplay_id VARCHAR PRIMARY KEY SORTKEY ,
+            start_time TIMESTAMP,
+            user_id VARCHAR,
             level VARCHAR,
-            song_id VARCHAR NOT NULL,
-            artist_id VARCHAR NOT NULL,
+            song_id VARCHAR,
+            artist_id VARCHAR,
             session_id INT,
             location VARCHAR,
             user_agent VARCHAR
@@ -69,7 +84,7 @@ class SqlQueries:
     CREATE TABLE IF NOT EXISTS songs (
             song_id VARCHAR PRIMARY KEY SORTKEY,
             title VARCHAR,
-            artist_id VARCHAR NOT NULL,
+            artist_id VARCHAR,
             year INT,
             duration INT
         )
@@ -101,7 +116,7 @@ class SqlQueries:
     """)
 
 
-
+ #####  Insert data
 
     songplays_table_insert = ("""
         SELECT
